@@ -1,0 +1,15 @@
+meta {
+  name: supprimer ticket
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/ticket/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
