@@ -1,9 +1,6 @@
 package edu.ban7.demo_spring_bsd_24_26.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +20,8 @@ public class Ticket {
     protected String name;
 
     protected String description;
+
+    @ManyToOne(optional = false)
+    protected AppUser creator;
 
 }
