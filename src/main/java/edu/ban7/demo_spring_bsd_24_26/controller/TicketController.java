@@ -1,7 +1,9 @@
 package edu.ban7.demo_spring_bsd_24_26.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.ban7.demo_spring_bsd_24_26.dao.TicketDao;
 import edu.ban7.demo_spring_bsd_24_26.model.Ticket;
+import edu.ban7.demo_spring_bsd_24_26.view.TicketView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,13 @@ public class TicketController {
     TicketDao ticketDao;
 
     @GetMapping("/ticket/list")
+    @JsonView(TicketView.class)
     List<Ticket> getAll() {
         return ticketDao.findAll();
     }
 
     @GetMapping("/ticket/{id}")
+    @JsonView(TicketView.class)
     ResponseEntity<Ticket> get(@PathVariable int id) {
 
         Optional<Ticket> optionalTicket = ticketDao.findById(id);
@@ -39,11 +43,11 @@ public class TicketController {
     }
 
     @PostMapping("/ticket")
-    ResponseEntity<Ticket> create(@RequestBody Ticket ticket) {
+    ResponseEntity<Ticket> create(@RequestBody Ticket nouveauTicket) {
         
-        ticketDao.save(ticket);
+        ticketDao.save(nouveauTicket);
         
-        return new ResponseEntity<>(ticket, HttpStatus.CREATED);
+        return new ResponseEntity<>(nouveauTicket, HttpStatus.CREATED);
         
     }
     

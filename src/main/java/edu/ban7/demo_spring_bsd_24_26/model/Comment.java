@@ -1,6 +1,5 @@
 package edu.ban7.demo_spring_bsd_24_26.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.ban7.demo_spring_bsd_24_26.view.AppUserView;
 import edu.ban7.demo_spring_bsd_24_26.view.TicketView;
@@ -10,36 +9,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ticket {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({AppUserView.class, TicketView.class})
     protected Integer id;
 
-    @JsonView({AppUserView.class, TicketView.class})
-    protected String name;
-
     @JsonView({TicketView.class})
-    protected String description;
+    protected String content;
 
     @ManyToOne(optional = false)
     @JsonView({TicketView.class})
     protected AppUser creator;
 
-    @ManyToOne
-    @JsonView({TicketView.class})
-    protected AppUser assignee;
-
-    @OneToMany(mappedBy = "ticket")
-    @JsonView({TicketView.class})
-    protected List<Comment> comments;
-
+    @ManyToOne(optional = false)
+    protected Ticket ticket;
 }
