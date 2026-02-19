@@ -23,16 +23,18 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthController {
 
-    protected final AppUserDao utilisateurDao;
     protected final PasswordEncoder passwordEncoder;
     protected final AuthenticationProvider authenticationProvider;
     protected final ISecuriteUtils securiteUtils;
+    private final AppUserDao appUserDao;
 
     @PostMapping("/inscription")
     public ResponseEntity<Void> inscription(@RequestBody AppUser user) throws IOException {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAdmin(false);
+
+        appUserDao.save(user);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

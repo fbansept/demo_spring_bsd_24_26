@@ -3,6 +3,8 @@ package edu.ban7.demo_spring_bsd_24_26.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.ban7.demo_spring_bsd_24_26.dao.TicketDao;
 import edu.ban7.demo_spring_bsd_24_26.model.Ticket;
+import edu.ban7.demo_spring_bsd_24_26.security.IsAdmin;
+import edu.ban7.demo_spring_bsd_24_26.security.IsUser;
 import edu.ban7.demo_spring_bsd_24_26.view.TicketView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +23,14 @@ public class TicketController {
 
     @GetMapping("/ticket/list")
     @JsonView(TicketView.class)
+    @IsUser
     List<Ticket> getAll() {
         return ticketDao.findAll();
     }
 
     @GetMapping("/ticket/{id}")
     @JsonView(TicketView.class)
+    @IsUser
     ResponseEntity<Ticket> get(@PathVariable int id) {
 
         Optional<Ticket> optionalTicket = ticketDao.findById(id);
@@ -43,6 +47,7 @@ public class TicketController {
     }
 
     @PostMapping("/ticket")
+    @IsUser
     ResponseEntity<Ticket> create(@RequestBody Ticket nouveauTicket) {
         
         ticketDao.save(nouveauTicket);
@@ -52,6 +57,7 @@ public class TicketController {
     }
     
     @DeleteMapping("/ticket/{id}")
+    @IsAdmin
     ResponseEntity<Void> delete(@PathVariable int id) {
         
         Optional<Ticket> optionalTicket = ticketDao.findById(id);
@@ -69,6 +75,7 @@ public class TicketController {
     }
 
     @PutMapping("/ticket/{id}")
+    @IsAdmin
     ResponseEntity<Void> update(
             @RequestBody Ticket ticket, 
             @PathVariable int id) {

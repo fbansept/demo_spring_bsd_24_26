@@ -3,6 +3,8 @@ package edu.ban7.demo_spring_bsd_24_26.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.ban7.demo_spring_bsd_24_26.dao.CommentDao;
 import edu.ban7.demo_spring_bsd_24_26.model.Comment;
+import edu.ban7.demo_spring_bsd_24_26.security.IsAdmin;
+import edu.ban7.demo_spring_bsd_24_26.security.IsUser;
 import edu.ban7.demo_spring_bsd_24_26.view.CommentView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +21,13 @@ public class CommentController {
     @Autowired
     CommentDao commentDao;
 
+    @IsUser
     @GetMapping("/comment/list")
     List<Comment> getAll() {
         return commentDao.findAll();
     }
 
+    @IsUser
     @GetMapping("/comment/{id}")
     @JsonView(CommentView.class)
     ResponseEntity<Comment> get(@PathVariable int id) {
@@ -41,6 +45,7 @@ public class CommentController {
 
     }
 
+    @IsUser
     @PostMapping("/comment")
     ResponseEntity<Comment> create(@RequestBody Comment nouveauComment) {
         
@@ -49,7 +54,8 @@ public class CommentController {
         return new ResponseEntity<>(nouveauComment, HttpStatus.CREATED);
         
     }
-    
+
+    @IsAdmin
     @DeleteMapping("/comment/{id}")
     ResponseEntity<Void> delete(@PathVariable int id) {
         
@@ -67,6 +73,7 @@ public class CommentController {
         
     }
 
+    @IsAdmin
     @PutMapping("/comment/{id}")
     ResponseEntity<Void> update(
             @RequestBody Comment comment, 

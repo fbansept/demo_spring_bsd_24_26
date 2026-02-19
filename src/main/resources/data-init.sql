@@ -1,6 +1,6 @@
-INSERT INTO app_user (email, password) VALUES
-    ('a@a.com', 'root'),
-    ('b@b.com', 'root');
+INSERT INTO app_user (email, password, admin) VALUES
+    ('a@a.com', '$2a$10$5WEsvVInsp51juqbyGg.iuYdOjqzTCLRSN0P8SueniFMdousb2Dyi', 1),
+    ('b@b.com', '$2a$10$5WEsvVInsp51juqbyGg.iuYdOjqzTCLRSN0P8SueniFMdousb2Dyi', 0);
 
 INSERT INTO ticket(name, description, creator_id, assignee_id) VALUES
     ('Mon PC marche pas ;(', 'Ecran noir', 1, 2),

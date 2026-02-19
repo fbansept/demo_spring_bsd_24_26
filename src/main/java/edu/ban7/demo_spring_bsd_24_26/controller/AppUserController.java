@@ -3,6 +3,7 @@ package edu.ban7.demo_spring_bsd_24_26.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import edu.ban7.demo_spring_bsd_24_26.dao.AppUserDao;
 import edu.ban7.demo_spring_bsd_24_26.model.AppUser;
+import edu.ban7.demo_spring_bsd_24_26.security.IsAdmin;
 import edu.ban7.demo_spring_bsd_24_26.view.AppUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,12 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
+@IsAdmin
 public class AppUserController {
 
     @Autowired
     AppUserDao appUserDao;
+
 
     @GetMapping("/list")
     List<AppUser> getAll() {
