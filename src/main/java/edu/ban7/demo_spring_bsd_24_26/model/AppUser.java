@@ -32,4 +32,6 @@ public class AppUser {
     @JsonView(AppUserView.class)
     protected List<Ticket> createdtickets;
 
+    protected boolean admin;
+
 }
